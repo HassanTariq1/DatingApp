@@ -19,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
@@ -74,11 +75,21 @@ currentUid=auth.getCurrentUser().getUid();
                 //Do something on the left!
                 //You also have access to the original object.
                 //If you want to use it just cast it (String) dataObject
+
+                cards obj= (cards) dataObject;
+                String userId= obj.getUserId();
+                data.child(notusersex).child(userId).child("connections").child("nope").child(currentUid).setValue(true);
+
                 Toast.makeText(MainActivity.this, "Left!",Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
+                cards obj= (cards) dataObject;
+                String userId= obj.getUserId();
+                isConnectionMatch(userId);
+                data.child(notusersex).child(userId).child("connections").child("yeps").child(currentUid).setValue(true);
                 Toast.makeText(MainActivity.this, "Right!",Toast.LENGTH_SHORT).show();
             }
 
@@ -102,6 +113,30 @@ currentUid=auth.getCurrentUser().getUid();
                 Toast.makeText(MainActivity.this, "Clicked!",Toast.LENGTH_SHORT).show();
             }
         });
+
+
+    }
+
+    private void isConnectionMatch(String userId) {
+         DatabaseReference currentdata=  data.child(usersex).child(currentUid).child("connections").child("yeps").child(userId);
+        currentdata.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    Toast.makeText(MainActivity.this,"New Connection ",Toast.LENGTH_SHORT).show();
+                    data.child(notusersex).child(dataSnapshot.getKey()).child("connections").child("matches").child(currentUid).setValue(true);
+
+                    data.child(usersex).child(currentUid).child("connections").child("matches").child(dataSnapshot.getKey()).setValue(true);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
 
     }
@@ -191,10 +226,10 @@ currentUid=auth.getCurrentUser().getUid();
 
 
 
-                if(dataSnapshot.exists()){
+                if(dataSnapshot.exists() && !dataSnapshot.child("connections").child("nope").hasChild(currentUid)  && !dataSnapshot.child("connections").child("yeps").hasChild(currentUid)){
 
 //                    al.add(dataSnapshot.child("name").getValue().toString());
-                   cards item= new cards(dataSnapshot.getKey(), dataSnapshot.child("name").getValue().toString());
+                   cards item= new cards(dataSnapshot.getKey(), dataSnapshot.child("name").getValue().toString(), dataSnapshot.child("profileImageUrl").getValue().toString());
                     rowItems.add(item);
                     arrayAdapter.notifyDataSetChanged();
 
@@ -226,6 +261,14 @@ currentUid=auth.getCurrentUser().getUid();
         Intent i = new Intent(MainActivity.this, ChooseLoginRegistrationActivity.class);
         startActivity(i);
         finish();
+        return;
+
+    }
+
+    public void goToSettings(View view) {
+        Intent i = new Intent(MainActivity.this, SettingsActivity.class);
+        i.putExtra("userSex", usersex);
+        startActivity(i);
         return;
 
     }

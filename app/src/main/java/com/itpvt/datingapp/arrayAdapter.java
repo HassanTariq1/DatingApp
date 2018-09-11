@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 /**
@@ -41,7 +43,7 @@ if(convertView==null){
 
 
     name.setText(card_item.getName());
-    image.setImageResource(R.mipmap.ic_launcher);
+    Glide.with(getContext() ).load(card_item.getProfileImageUrl()).into(image);
 
     return convertView;
 
