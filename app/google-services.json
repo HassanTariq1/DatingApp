@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "699499242299",
+    "firebase_url": "https://tinder-d860f.firebaseio.com",
+    "project_id": "tinder-d860f",
+    "storage_bucket": "tinder-d860f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:699499242299:android:21b47e533c71b48c",
+        "android_client_info": {
+          "package_name": "com.itpvt.datingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "699499242299-b5qtm9pd6k9e9bmq9pks2vprgbbeo9ou.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.itpvt.datingapp",
+            "certificate_hash": "0cbce284d3ef093d14534e7e2933c5bbf7883c6f"
+          }
+        },
+        {
+          "client_id": "699499242299-7qeuj8abmga5l8jn34kfa90he8po4ji5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCn_dHlx4pX9H6N0Dfswk7KY3qAO-RBG1E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "699499242299-7qeuj8abmga5l8jn34kfa90he8po4ji5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
