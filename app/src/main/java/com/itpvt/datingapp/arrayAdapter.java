@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,9 +35,9 @@ if(convertView==null){
 
 
 }
-    TextView name=(TextView)convertView.findViewById(R.id.name);
+    TextView name=(TextView) convertView.findViewById(R.id.helloText);
 
-    ImageView image=(ImageView) convertView.findViewById(R.id.image);
+    ImageView image=(ImageView) convertView.findViewById(R.id.imagee);
 
 
     name.setText(card_item.getName());

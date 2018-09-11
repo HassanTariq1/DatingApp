@@ -38,7 +38,6 @@ public class cards {
     }
     public void setName(String name){
 
-
         this.name=name;
     }
 
