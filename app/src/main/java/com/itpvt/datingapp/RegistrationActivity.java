@@ -84,7 +84,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(radioButton.getText().toString()).child(userId);
                             Map userInfo = new HashMap<>();
                             userInfo.put("name", name);
-                            userInfo.put("profileImageUrl", "default");
+
                             currentUserDb.updateChildren(userInfo);
                         }
                     }

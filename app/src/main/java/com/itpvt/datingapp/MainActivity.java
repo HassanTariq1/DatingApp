@@ -184,15 +184,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if (dataSnapshot.exists() && !dataSnapshot.child("connections").child("nope").hasChild(currentUId) && !dataSnapshot.child("connections").child("yeps").hasChild(currentUId)){
-                    String profileImageUrl = "default";
-                    if (!dataSnapshot.child("profileImageUrl").getValue().equals("default")){
-                        profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+
                     }
-                    cards item = new cards(dataSnapshot.getKey(), dataSnapshot.child("name").getValue().toString(), profileImageUrl);
+                    cards item = new cards(dataSnapshot.getKey(), dataSnapshot.child("name").getValue().toString());
                     rowItems.add(item);
                     arrayAdapter.notifyDataSetChanged();
                 }
-            }
+
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
             }
@@ -220,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToSettings(View view) {
         Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-
+intent.putExtra("UserSex", userSex);
         startActivity(intent);
         return;
     }

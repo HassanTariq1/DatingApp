@@ -7,11 +7,11 @@ package com.itpvt.datingapp;
 public class cards {
     private String userId;
     private String name;
-    private String profileImageUrl;
-    public cards (String userId, String name, String profileImageUrl){
+
+    public cards(String userId, String name){
         this.userId = userId;
         this.name = name;
-        this.profileImageUrl = profileImageUrl;
+
     }
 
     public String getUserId(){
@@ -28,10 +28,6 @@ public class cards {
         this.name = name;
     }
 
-    public String getProfileImageUrl(){
-        return profileImageUrl;
+
     }
-    public void setProfileImageUrl(String profileImageUrl){
-        this.profileImageUrl = profileImageUrl;
-    }
-}
+
