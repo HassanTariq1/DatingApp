@@ -1,51 +1,37 @@
 package com.itpvt.datingapp;
 
 /**
- * Created by Hassan on 9/10/2018.
+ * Created by manel on 9/5/2017.
  */
 
 public class cards {
-
-    private   String userId;
-    private   String name;
-   private String profileImageUrl;
-
-    public cards(String userId, String name, String profileImageUrl){
-
-        this.userId= userId;
-        this.name=name;
-        this.profileImageUrl=profileImageUrl;
-
-
+    private String userId;
+    private String name;
+    private String profileImageUrl;
+    public cards (String userId, String name, String profileImageUrl){
+        this.userId = userId;
+        this.name = name;
+        this.profileImageUrl = profileImageUrl;
     }
 
-    public  String  getUserId(){
-
+    public String getUserId(){
         return userId;
-
-
     }
     public void setUserID(String userID){
-
-
-        this.userId=userId;
+        this.userId = userId;
     }
-    public  String  getName(){
 
+    public String getName(){
         return name;
-
-
     }
     public void setName(String name){
-
-        this.name=name;
+        this.name = name;
     }
 
-    public String getProfileImageUrl() {
+    public String getProfileImageUrl(){
         return profileImageUrl;
     }
-
-    public void setProfileImageUrl(String profileImageUrl) {
+    public void setProfileImageUrl(String profileImageUrl){
         this.profileImageUrl = profileImageUrl;
     }
 }

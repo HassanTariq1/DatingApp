@@ -1,10 +1,9 @@
 package com.itpvt.datingapp;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,87 +17,62 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private FirebaseAuth auth;
-    FirebaseAuth.AuthStateListener  listener;
-    private Button log;
-    private EditText txt, txt1,  mName;
+    private Button mLogin;
+    private EditText mEmail, mPassword;
 
-
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
-        txt= (EditText) findViewById(R.id.email);
-        txt1=(EditText) findViewById(R.id.pass);
-      log=(Button)findViewById(R.id.login);
-
-
-        auth=FirebaseAuth.getInstance();
-
-        listener= new FirebaseAuth.AuthStateListener() {
+        mAuth = FirebaseAuth.getInstance();
+        firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
-                final FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
-                if(user!=null){
-                    Intent i =new Intent(LoginActivity.this,MainActivity.class);
-                    startActivity(i);
+                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user !=null){
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
                     finish();
                     return;
-
                 }
-
-
             }
         };
 
 
-        log.setOnClickListener(new View.OnClickListener() {
+        mLogin = (Button) findViewById(R.id.login);
+
+        mEmail = (EditText) findViewById(R.id.email);
+        mPassword = (EditText) findViewById(R.id.password);
+
+        mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-
-
-                final  String email= txt.getText().toString();
-                final  String pass= txt1.getText().toString();
-
-                auth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                final String email = mEmail.getText().toString();
+                final String password = mPassword.getText().toString();
+                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
                         if(!task.isSuccessful()){
-
-                            Toast.makeText(LoginActivity.this,"Error occur", Toast.LENGTH_SHORT).show();
-
-                        }else {
-
-
-
-
-
-
+                            Toast.makeText(LoginActivity.this, "sign in error", Toast.LENGTH_SHORT).show();
                         }
-
-
                     }
                 });
-
             }
         });
     }
+
     @Override
     protected void onStart() {
         super.onStart();
-        auth.addAuthStateListener(listener);
+        mAuth.addAuthStateListener(firebaseAuthStateListener);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        auth.removeAuthStateListener(listener);
+        mAuth.removeAuthStateListener(firebaseAuthStateListener);
     }
-
 }
