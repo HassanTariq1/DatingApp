@@ -134,9 +134,9 @@ public class MainActivity extends AppCompatActivity {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         DatabaseReference userDb = usersDb.child(user.getUid());
-        userDb.addChildEventListener(new ChildEventListener() {
+        userDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getKey().equals(user.getUid())){
 
                     if(dataSnapshot.exists()){
@@ -145,61 +145,49 @@ public class MainActivity extends AppCompatActivity {
 
                             userSex = dataSnapshot.child("sex").getValue().toString();
                             oppositeUserSex = "Female";
-switch (userSex){
-    case "Male":
-        oppositeUserSex="Female";
-        break;
-    case "Female":
-        oppositeUserSex="Male";
-        break;
-}
-                            getOppositeSexUsers();
+            }
+                        switch (userSex){
+                            case "Male":
+                                oppositeUserSex="Female";
+                                break;
+                            case "Female":
+                                oppositeUserSex="Male";
+                                break;
                         }
+                        getOppositeSexUsers();
                     }
-
-
                 }
-            }
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            }
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+
             }
 
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-            }
-        });
 
-        DatabaseReference femaleDb = FirebaseDatabase.getInstance().getReference().child("Users").child("Female");
-        femaleDb.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                if (dataSnapshot.getKey().equals(user.getUid())){
-                    userSex = "Female";
-                    oppositeUserSex = "Male";
-                    getOppositeSexUsers();
-                }
             }
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            }
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-            }
+       });
+        }
+////            @Override
+////            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//
+//
+//            }
+//            @Override
+//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//            }
+//            @Override
+//            public void onChildRemoved(DataSnapshot dataSnapshot) {
+//            }
+//
+//            @Override
+//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//            }
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//            }
+//        });
 
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-    }
+
 
     public void getOppositeSexUsers(){
 

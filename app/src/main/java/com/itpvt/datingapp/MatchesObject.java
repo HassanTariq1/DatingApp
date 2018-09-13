@@ -11,6 +11,8 @@ public class MatchesObject {
     private String userId;
     public MatchesObject(String userId, String name, String profileImageUrl){
         this.userId = userId;
+        this.name=name;
+        this.profileImageUrl=profileImageUrl;
 
 
     }
