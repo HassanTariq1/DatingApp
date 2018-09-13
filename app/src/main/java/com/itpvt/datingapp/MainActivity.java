@@ -250,4 +250,12 @@ profileImageUrl=dataSnapshot.child("profileImageUrl").getValue().toString();
         startActivity(intent);
         return;
     }
+
+    public void goToMatches(View view) {
+
+        Intent intent = new Intent(MainActivity.this, MatchesActivity.class);
+
+        startActivity(intent);
+        return;
+    }
 }
