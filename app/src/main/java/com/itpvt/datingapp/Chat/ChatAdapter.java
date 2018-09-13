@@ -1,7 +1,10 @@
 package com.itpvt.datingapp.Chat;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.view.CollapsibleActionView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +35,7 @@ ChatAdapter extends RecyclerView.Adapter<ChatViewHolder> {
     @Override
     public ChatViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View layout= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_matches, null,false);
+        View layout= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat, null,false);
         RecyclerView.LayoutParams lp= new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layout.setLayoutParams(lp);
         ChatViewHolder rov= new ChatViewHolder(layout);
@@ -43,7 +46,21 @@ ChatAdapter extends RecyclerView.Adapter<ChatViewHolder> {
     @Override
     public void onBindViewHolder(ChatViewHolder holder, int position) {
 
+holder.txtmsg.setText(chatlist.get(position).getMessage());
+if(chatlist.get(position).getCurrentuser()){
 
+    holder.txtmsg.setGravity(Gravity.END);
+    holder.txtmsg.setBackgroundColor(Color.parseColor("#404040"));
+    holder.managerl.setBackgroundColor(Color.parseColor("#F4F4F4"));
+}
+else{
+
+
+    holder.txtmsg.setGravity(Gravity.START);
+    holder.txtmsg.setBackgroundColor(Color.parseColor("#404040"));
+    holder.managerl.setBackgroundColor(Color.parseColor("#F4F4F4"));
+
+}
 
     }
 

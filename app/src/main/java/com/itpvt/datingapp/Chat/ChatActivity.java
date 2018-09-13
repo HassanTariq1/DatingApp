@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -52,7 +53,7 @@ matchId= getIntent().getExtras().getString("matchId");
 
         cycle=(RecyclerView) findViewById(R.id.cycle);
         cycle.setNestedScrollingEnabled(false);
-        cycle.setHasFixedSize(true);
+        cycle.setHasFixedSize(false);
 
         managerchat= new LinearLayoutManager(ChatActivity.this);
         cycle.setLayoutManager(managerchat);
@@ -100,6 +101,7 @@ matchId= getIntent().getExtras().getString("matchId");
 
                     chatId= dataSnapshot.getValue().toString();
                     datach=datach.child(chatId);
+                    getMessage();
 
                 }
             }
@@ -111,6 +113,65 @@ matchId= getIntent().getExtras().getString("matchId");
         });
 
 
+    }
+
+    private void getMessage() {
+
+        datach.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                if(dataSnapshot.exists()){
+
+                    String msg=null;
+                    String create= null;
+                    if(dataSnapshot.child("text").getValue()!=null){
+
+msg= dataSnapshot.child("text").getValue().toString();
+                    }
+                    if(dataSnapshot.child("createByUser").getValue()!=null){
+
+                        create= dataSnapshot.child("createByUser").getValue().toString();
+                    }
+
+                    if(msg!=null && create!=null){
+
+
+                        Boolean curentbolean= false;
+                        if(create.equals(currentUser)){
+curentbolean=true;
+
+                        }
+
+                        ChatObject newmseg= new ChatObject(msg, curentbolean);
+                        resultChat.add(newmseg);
+                        adapterchat.notifyDataSetChanged();
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
