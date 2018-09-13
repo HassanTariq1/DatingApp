@@ -17,6 +17,13 @@ public class MatchesObject {
 
     }
 
+    public String getUserId(){
+        return userId;
+    }
+    public void setUserID(String userID){
+        this.userId = userId;
+    }
+
     public String getName() {
         return name;
     }
@@ -33,11 +40,6 @@ public class MatchesObject {
         this.profileImageUrl = profileImageUrl;
     }
 
-    public String getUserId(){
-        return userId;
-    }
-    public void setUserID(String userID){
-        this.userId = userId;
-    }
+
 
 }
