@@ -6,13 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 /**
  * Created by Hassan on 9/12/2018.
  */
 
-public class MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolder> {
+public class
+MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolder> {
 
     private List<MatchesObject> matchlist;
    private Context cont;
@@ -40,6 +43,10 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolder> {
     public void onBindViewHolder(MatchesViewHolder holder, int position) {
 
        holder.matchid.setText(matchlist.get(position).getUserId());
+        holder.matchname.setText(matchlist.get(position).getName());
+        if(!matchlist.get(position).getProfileImageUrl().equals("default")) {
+            Glide.with(cont).load(matchlist.get(position).getProfileImageUrl()).into(holder.imgm);
+        }
 
     }
 
