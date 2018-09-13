@@ -14,8 +14,7 @@ import java.util.List;
  * Created by Hassan on 9/12/2018.
  */
 
-public class
-MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolder> {
+public class MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolder> {
 
     private List<MatchesObject> matchlist;
    private Context cont;
@@ -32,11 +31,11 @@ MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolder> {
     public MatchesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View layout= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_matches, null,false);
-        RecyclerView.LayoutParams lp= new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layout.setLayoutParams(lp);
-        MatchesViewHolder rov= new MatchesViewHolder(layout);
 
-        return rov;
+       MatchesViewHolder view= new MatchesViewHolder(layout);
+
+
+        return view;
     }
 
     @Override
@@ -52,6 +51,6 @@ MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolder> {
 
     @Override
     public int getItemCount() {
-        return 0;
+        return matchlist.size();
     }
 }
