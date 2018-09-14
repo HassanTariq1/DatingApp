@@ -5,28 +5,24 @@ package com.itpvt.datingapp.Chat;
  */
 
 public class ChatObject {
-private String message;
-private  Boolean currentuser;
-
-
-    public ChatObject(String message, Boolean currentuser) {
+    private String message;
+    private Boolean currentUser;
+    public ChatObject(String message, Boolean currentUser){
         this.message = message;
-        this.currentuser = currentuser;
+        this.currentUser = currentUser;
     }
 
-    public String getMessage() {
+    public String getMessage(){
         return message;
     }
-
-    public void setMessage(String message) {
+    public void setMessage(String userID){
         this.message = message;
     }
 
-    public Boolean getCurrentuser() {
-        return currentuser;
+    public Boolean getCurrentUser(){
+        return currentUser;
     }
-
-    public void setCurrentuser(Boolean currentuser) {
-        this.currentuser = currentuser;
+    public void setCurrentUser(Boolean currentUser){
+        this.currentUser = currentUser;
     }
 }

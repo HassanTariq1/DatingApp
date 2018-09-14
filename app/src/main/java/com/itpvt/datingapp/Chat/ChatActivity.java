@@ -26,83 +26,73 @@ import java.util.Map;
 
 public class ChatActivity extends AppCompatActivity {
 
-    private RecyclerView cycle;
-    private RecyclerView.Adapter adapterchat;
-    private RecyclerView.LayoutManager managerchat;
-    private  String currentUser, matchId, chatId;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mChatAdapter;
+    private RecyclerView.LayoutManager mChatLayoutManager;
 
-    private EditText smstxt;
-    private Button btntxt;
-    DatabaseReference datab, datach;
+    private EditText mSendEditText;
 
+    private Button mSendButton;
 
+    private String currentUserID, matchId, chatId;
+
+    DatabaseReference mDatabaseUser, mDatabaseChat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        smstxt=(EditText)findViewById(R.id.editsms);
-        btntxt=(Button)findViewById(R.id.send);
-        currentUser= FirebaseAuth.getInstance().getCurrentUser().getUid();
-        matchId= getIntent().getExtras().getString("matchId");
-        datab= FirebaseDatabase.getInstance().getReference().child("Users").child(currentUser)
-                .child("connections").child("matches").child(matchId).child("ChatId");
-//
-//        mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID)
-//                .child("connections").child("matches").child(matchId).child("ChatId");
+        matchId = getIntent().getExtras().getString("matchId");
 
-        datach= FirebaseDatabase.getInstance().getReference().child("Chat");
+        currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("connections").child("matches").child(matchId).child("ChatId");
+        mDatabaseChat = FirebaseDatabase.getInstance().getReference().child("Chat");
 
         getChatId();
-        cycle=(RecyclerView) findViewById(R.id.cycle);
-        cycle.setNestedScrollingEnabled(false);
-        cycle.setHasFixedSize(false);
 
-        managerchat= new LinearLayoutManager(ChatActivity.this);
-        cycle.setLayoutManager(managerchat);
-        adapterchat= new ChatAdapter(getDataSetChat(), ChatActivity.this);
-        cycle.setAdapter(adapterchat);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        mRecyclerView.setNestedScrollingEnabled(false);
+        mRecyclerView.setHasFixedSize(false);
+        mChatLayoutManager = new LinearLayoutManager(ChatActivity.this);
+        mRecyclerView.setLayoutManager(mChatLayoutManager);
+        mChatAdapter = new ChatAdapter(getDataSetChat(), ChatActivity.this);
+        mRecyclerView.setAdapter(mChatAdapter);
 
-        btntxt.setOnClickListener(new View.OnClickListener() {
+        mSendEditText = (EditText) findViewById(R.id.mes);
+        mSendButton = findViewById(R.id.send);
+
+        mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SendSms();
-                
-                
+                sendMessage();
             }
         });
-        
     }
 
-    private void SendSms() {
+    private void sendMessage() {
+        String sendMessageText = mSendEditText.getText().toString();
 
+        if(!sendMessageText.isEmpty()){
+            DatabaseReference newMessageDb = mDatabaseChat.push();
 
-        String sendsms= smstxt.getText().toString();
-        if(!sendsms.isEmpty()){
+            Map newMessage = new HashMap();
+            newMessage.put("createdByUser", currentUserID);
+            newMessage.put("text", sendMessageText);
 
-            DatabaseReference  newmsg= datach.push();
-
-            Map newMsg= new HashMap();
-            newMsg.put( "createdByUser", currentUser);
-            newMsg.put( "text", sendsms);
-
-            newmsg.setValue(newMsg);
-
-
-
+            newMessageDb.setValue(newMessage);
         }
-
-        smstxt.setText(null);
+        mSendEditText.setText(null);
     }
 
     private void getChatId(){
-        datab.addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
                     chatId = dataSnapshot.getValue().toString();
-                    datach = datach.child(chatId);
-                    getMessage();
+                    mDatabaseChat = mDatabaseChat.child(chatId);
+                    getChatMessages();
                 }
             }
 
@@ -112,93 +102,52 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
     }
-//    private  void getChatId(){
-//        datab.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                if(dataSnapshot.exists()){
-//
-//                    chatId= dataSnapshot.getValue().toString();
-//                    datach=datach.child(chatId);
-//                    getMessage();
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//
-//
-//    }
 
-    private void getMessage() {
-
-        datach.addChildEventListener(new ChildEventListener() {
+    private void getChatMessages() {
+        mDatabaseChat.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
                 if(dataSnapshot.exists()){
+                    String message = null;
+                    String createdByUser = null;
 
-                    String msg=null;
-                    String create= null;
                     if(dataSnapshot.child("text").getValue()!=null){
-
-msg= dataSnapshot.child("text").getValue().toString();
+                        message = dataSnapshot.child("text").getValue().toString();
                     }
-                    if(dataSnapshot.child("createByUser").getValue()!=null){
-
-                        create= dataSnapshot.child("createByUser").getValue().toString();
+                    if(dataSnapshot.child("createdByUser").getValue()!=null){
+                        createdByUser = dataSnapshot.child("createdByUser").getValue().toString();
                     }
 
-                    if(msg!=null && create!=null){
-
-
-                        Boolean curentbolean= false;
-                        if(create.equals(currentUser)){
-curentbolean=true;
-
+                    if(message!=null && createdByUser!=null){
+                        Boolean currentUserBoolean = false;
+                        if(createdByUser.equals(currentUserID)){
+                            currentUserBoolean = true;
                         }
-
-                        ChatObject newmseg= new ChatObject(msg, curentbolean);
-                        resultChat.add(newmseg);
-                        adapterchat.notifyDataSetChanged();
+                        ChatObject newMessage = new ChatObject(message, currentUserBoolean);
+                        resultsChat.add(newMessage);
+                        mChatAdapter.notifyDataSetChanged();
                     }
                 }
 
-
             }
-
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
             }
-
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
             }
-
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
     }
 
 
-    private ArrayList<ChatObject> resultChat = new ArrayList<ChatObject>();
+    private ArrayList<ChatObject> resultsChat = new ArrayList<ChatObject>();
     private List<ChatObject> getDataSetChat() {
-
-        return  resultChat;
-
-
+        return resultsChat;
     }
 }

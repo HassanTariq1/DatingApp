@@ -16,25 +16,17 @@ import com.itpvt.datingapp.R;
 
 public class ChatViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-
-    public  TextView txtmsg;
-    public LinearLayout managerl;
-
-
+    public TextView mMessage;
+    public LinearLayout mContainer;
     public ChatViewHolder(View itemView) {
         super(itemView);
-itemView.setOnClickListener(this);
+        itemView.setOnClickListener(this);
 
-txtmsg=(TextView) itemView.findViewById(R.id.msg);
-managerl=(LinearLayout) itemView.findViewById(R.id.container);
-
-
-
+        mMessage = itemView.findViewById(R.id.message);
+        mContainer = itemView.findViewById(R.id.container);
     }
 
     @Override
     public void onClick(View view) {
-
-
     }
 }

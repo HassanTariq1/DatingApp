@@ -12,10 +12,6 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-/**
- * Created by manel on 9/5/2017.
- */
-
 public class arrayAdapter extends ArrayAdapter<cards>{
 
     Context context;

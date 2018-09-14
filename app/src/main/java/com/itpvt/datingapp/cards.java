@@ -1,8 +1,6 @@
 package com.itpvt.datingapp;
 
-/**
- * Created by manel on 9/5/2017.
- */
+
 
 public class cards {
     private String userId;

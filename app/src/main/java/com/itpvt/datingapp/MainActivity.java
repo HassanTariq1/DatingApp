@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
     private void isConnectionMatch(String userId) {
         DatabaseReference currentUserConnectionsDb = usersDb.child(currentUId).child("connections").child("yeps")
                 .child(userId);
+
         currentUserConnectionsDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -120,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
                             .child("ChatId").setValue(key);
                     usersDb.child(currentUId).child("connections").child("matches").child(dataSnapshot.getKey())
                             .child("ChatId").setValue(key);
+
                 }
             }
 
@@ -175,12 +177,12 @@ public class MainActivity extends AppCompatActivity {
 //
 //
 //            }
-//            @Override
+//            }
+//     @Override
 //            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 //            }
 //            @Override
 //            public void onChildRemoved(DataSnapshot dataSnapshot) {
-//            }
 //
 //            @Override
 //            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
@@ -197,7 +199,9 @@ public class MainActivity extends AppCompatActivity {
         usersDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                if (dataSnapshot.exists() && !dataSnapshot.child("connections").child("nope").hasChild(currentUId) && !dataSnapshot.child("connections").child("yeps").hasChild(currentUId) &&  dataSnapshot.child("sex").getValue().toString().equals(oppositeUserSex)){
+                if (dataSnapshot.exists() && !dataSnapshot.child("connections").child("nope").hasChild(currentUId) &&
+                        !dataSnapshot.child("connections").child("yeps").hasChild(currentUId)
+                        &&  dataSnapshot.child("sex").getValue().toString().equals(oppositeUserSex)){
 
                     String profileImageUrl="default";
 
