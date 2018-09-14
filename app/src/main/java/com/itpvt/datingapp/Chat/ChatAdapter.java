@@ -48,16 +48,16 @@ ChatAdapter extends RecyclerView.Adapter<ChatViewHolder> {
 holder.txtmsg.setText(chatlist.get(position).getMessage());
 if(chatlist.get(position).getCurrentuser()){
 
-    holder.txtmsg.setGravity(Gravity.END);
-    holder.txtmsg.setBackgroundColor(Color.parseColor("#404040"));
+
+    holder.txtmsg.setTextColor(Color.parseColor("#404040"));
     holder.managerl.setBackgroundColor(Color.parseColor("#F4F4F4"));
 }
 else{
 
 
-    holder.txtmsg.setGravity(Gravity.START);
-    holder.txtmsg.setBackgroundColor(Color.parseColor("#404040"));
-    holder.managerl.setBackgroundColor(Color.parseColor("#F4F4F4"));
+
+    holder.txtmsg.setTextColor(Color.parseColor("#FFFFFF"));
+    holder.managerl.setBackgroundColor(Color.parseColor("#2DB4C8"));
 
 }
 
@@ -65,6 +65,7 @@ else{
 
     @Override
     public int getItemCount() {
-        return 0;
+        return chatlist.size();
     }
+
 }

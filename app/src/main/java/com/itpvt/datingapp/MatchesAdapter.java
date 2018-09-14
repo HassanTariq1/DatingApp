@@ -36,6 +36,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolder> {
 
 
         return view;
+
     }
 
     @Override

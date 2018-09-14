@@ -43,14 +43,17 @@ public class ChatActivity extends AppCompatActivity {
 
         smstxt=(EditText)findViewById(R.id.editsms);
         btntxt=(Button)findViewById(R.id.send);
-getChatId();
-
-        datab= FirebaseDatabase.getInstance().getReference().child("Users").child(currentUser).child("connections").child("matches").child(matchId).child("chatId");
+        currentUser= FirebaseAuth.getInstance().getCurrentUser().getUid();
+        matchId= getIntent().getExtras().getString("matchId");
+        datab= FirebaseDatabase.getInstance().getReference().child("Users").child(currentUser)
+                .child("connections").child("matches").child(matchId).child("ChatId");
+//
+//        mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID)
+//                .child("connections").child("matches").child(matchId).child("ChatId");
 
         datach= FirebaseDatabase.getInstance().getReference().child("Chat");
-matchId= getIntent().getExtras().getString("matchId");
-        currentUser= FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        getChatId();
         cycle=(RecyclerView) findViewById(R.id.cycle);
         cycle.setNestedScrollingEnabled(false);
         cycle.setHasFixedSize(false);
@@ -59,7 +62,7 @@ matchId= getIntent().getExtras().getString("matchId");
         cycle.setLayoutManager(managerchat);
         adapterchat= new ChatAdapter(getDataSetChat(), ChatActivity.this);
         cycle.setAdapter(adapterchat);
-        
+
         btntxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,17 +95,14 @@ matchId= getIntent().getExtras().getString("matchId");
         smstxt.setText(null);
     }
 
-
-    private  void getChatId(){
+    private void getChatId(){
         datab.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-
-                    chatId= dataSnapshot.getValue().toString();
-                    datach=datach.child(chatId);
+                if (dataSnapshot.exists()){
+                    chatId = dataSnapshot.getValue().toString();
+                    datach = datach.child(chatId);
                     getMessage();
-
                 }
             }
 
@@ -111,9 +111,28 @@ matchId= getIntent().getExtras().getString("matchId");
 
             }
         });
-
-
     }
+//    private  void getChatId(){
+//        datab.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                if(dataSnapshot.exists()){
+//
+//                    chatId= dataSnapshot.getValue().toString();
+//                    datach=datach.child(chatId);
+//                    getMessage();
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//
+//
+//    }
 
     private void getMessage() {
 
