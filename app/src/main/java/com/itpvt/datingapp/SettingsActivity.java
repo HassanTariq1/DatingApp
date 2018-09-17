@@ -90,7 +90,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
     }
-
+// get all the info of user store in the database
 
     private void getUserInfo() {
         mCustomerDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -105,6 +105,7 @@ public class SettingsActivity extends AppCompatActivity {
                     if(map.get("phone")!=null){
                         phone = map.get("phone").toString();
                         mPhoneField.setText(phone);
+
                     }
                     if(map.get("sex")!=null){
                         userSex = map.get("sex").toString();
@@ -141,6 +142,8 @@ public class SettingsActivity extends AppCompatActivity {
         userInfo.put("name", name);
         userInfo.put("phone", phone);
         mCustomerDatabase.updateChildren(userInfo);
+
+        // for upload an image of user with phone and name //
         if(resultUri != null){
             StorageReference filepath = FirebaseStorage.getInstance().getReference().child("profileImages").child(userId);
             Bitmap bitmap = null;
@@ -161,6 +164,7 @@ public class SettingsActivity extends AppCompatActivity {
                     finish();
                 }
             });
+            // it is store the default image when no image of user is available
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -178,7 +182,7 @@ public class SettingsActivity extends AppCompatActivity {
             finish();
         }
     }
-
+// for image result
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

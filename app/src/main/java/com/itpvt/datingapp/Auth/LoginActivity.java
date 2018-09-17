@@ -1,4 +1,4 @@
-package com.itpvt.datingapp;
+package com.itpvt.datingapp.Auth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.itpvt.datingapp.MainActivity;
+import com.itpvt.datingapp.R;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -57,7 +59,7 @@ private TextView txt;
 
             }
         });
-
+// function of login of user by confirm the name and the password
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

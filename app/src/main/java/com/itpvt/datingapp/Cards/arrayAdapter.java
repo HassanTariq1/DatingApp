@@ -1,4 +1,4 @@
-package com.itpvt.datingapp;
+package com.itpvt.datingapp.Cards;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.itpvt.datingapp.R;
 
 import java.util.List;
 
@@ -19,6 +20,10 @@ public class arrayAdapter extends ArrayAdapter<cards>{
     public arrayAdapter(Context context, int resourceId, List<cards> items){
         super(context, resourceId, items);
     }
+    // getting the layouts of card whcih are made with name and image
+
+
+
     public View getView(int position, View convertView, ViewGroup parent){
         cards card_item = getItem(position);
 

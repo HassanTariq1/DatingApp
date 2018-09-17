@@ -1,4 +1,4 @@
-package com.itpvt.datingapp;
+package com.itpvt.datingapp.Matches;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.itpvt.datingapp.R;
 
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolder> {
         return view;
 
     }
-
+// set the image on matches or make it default
     @Override
     public void onBindViewHolder(MatchesViewHolder holder, int position) {
 

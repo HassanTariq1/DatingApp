@@ -1,4 +1,4 @@
-package com.itpvt.datingapp;
+package com.itpvt.datingapp.Matches;
 
 /**
  * Created by Hassan on 9/12/2018.

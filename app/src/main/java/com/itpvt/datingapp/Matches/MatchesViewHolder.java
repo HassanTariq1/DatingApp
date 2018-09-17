@@ -1,4 +1,4 @@
-package com.itpvt.datingapp;
+package com.itpvt.datingapp.Matches;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.itpvt.datingapp.Chat.ChatActivity;
+import com.itpvt.datingapp.R;
 
 /**
  * Created by Hassan on 9/12/2018.
@@ -30,7 +31,7 @@ matchid= (TextView) itemView.findViewById(R.id.txtmatch);
 
 
     }
-
+// it carry the matchID of user to chat activity for chatting according to the user name or authentication
     @Override
     public void onClick(View view) {
 Intent i = new Intent(view.getContext(), ChatActivity.class);

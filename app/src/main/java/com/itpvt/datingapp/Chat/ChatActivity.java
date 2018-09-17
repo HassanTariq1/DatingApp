@@ -15,8 +15,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.itpvt.datingapp.MatchesAdapter;
-import com.itpvt.datingapp.MatchesObject;
 import com.itpvt.datingapp.R;
 
 import java.util.ArrayList;
@@ -102,7 +100,7 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
     }
-
+// get the messages of the users chatting
     private void getChatMessages() {
         mDatabaseChat.addChildEventListener(new ChildEventListener() {
             @Override
@@ -144,7 +142,7 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
     }
-
+// represent the list of all the chating
 
     private ArrayList<ChatObject> resultsChat = new ArrayList<ChatObject>();
     private List<ChatObject> getDataSetChat() {

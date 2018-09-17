@@ -16,15 +16,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.itpvt.datingapp.Auth.ChooseLoginRegistrationActivity;
+import com.itpvt.datingapp.Cards.arrayAdapter;
+import com.itpvt.datingapp.Cards.cards;
+import com.itpvt.datingapp.Matches.MatchesActivity;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private cards cards_data[];
-    private arrayAdapter arrayAdapter;
+    private com.itpvt.datingapp.Cards.arrayAdapter arrayAdapter;
     private int i;
 
     private FirebaseAuth mAuth;
@@ -66,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 rowItems.remove(0);
                 arrayAdapter.notifyDataSetChanged();
             }
-
+// on left it deny the request
             @Override
             public void onLeftCardExit(Object dataObject) {
 
@@ -75,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 usersDb.child(userId).child("connections").child("nope").child(currentUId).setValue(true);
                 Toast.makeText(MainActivity.this, "Left", Toast.LENGTH_SHORT).show();
             }
-
+/// on right match will happen
             @Override
             public void onRightCardExit(Object dataObject) {
                 cards obj = (cards) dataObject;
@@ -104,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
+// make the matches in the form of yes and no
     private void isConnectionMatch(String userId) {
         DatabaseReference currentUserConnectionsDb = usersDb.child(currentUId).child("connections").child("yeps")
                 .child(userId);
@@ -130,6 +133,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    // geting the user gender
 
     private String userSex;
     private String oppositeUserSex;
@@ -233,7 +238,7 @@ profileImageUrl=dataSnapshot.child("profileImageUrl").getValue().toString();
         });
     }
 
-
+// logout user
     public void logoutUser(View view) {
         mAuth.signOut();
         Intent intent = new Intent(MainActivity.this, ChooseLoginRegistrationActivity.class);

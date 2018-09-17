@@ -1,4 +1,4 @@
-package com.itpvt.datingapp;
+package com.itpvt.datingapp.Auth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.itpvt.datingapp.MainActivity;
+import com.itpvt.datingapp.R;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -70,6 +72,13 @@ public class RegistrationActivity extends AppCompatActivity {
                 if(radioButton.getText() == null){
                     return;
                 }
+
+
+                // save the info of the user in the database like registration the user willl not be get registered
+                // again and again
+// store the name, image, and gender of the user
+
+
 
                 final String email = mEmail.getText().toString();
                 final String password = mPassword.getText().toString();

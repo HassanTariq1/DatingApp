@@ -1,4 +1,4 @@
-package com.itpvt.datingapp;
+package com.itpvt.datingapp.Auth;
 
 
 import android.content.Intent;
@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.itpvt.datingapp.MainActivity;
+import com.itpvt.datingapp.R;
 
 public class ForgotPassword extends AppCompatActivity implements View.OnClickListener {
 
@@ -56,6 +58,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
             resetPassword(input_email.getText().toString());
         }
     }
+    // forgot password functions which sends an email to the user id of mail
 
     private void resetPassword(final String email) {
         auth.sendPasswordResetEmail(email)
@@ -67,7 +70,8 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
                             Snackbar snackBar = Snackbar.make(activity_forgot,"We have sent password to email: "+email,Snackbar.LENGTH_SHORT);
                             snackBar.show();
                         }
-                        else{
+                        else
+                            {
                             Snackbar snackBar = Snackbar.make(activity_forgot,"Failed to send password",Snackbar.LENGTH_SHORT);
                             snackBar.show();
                         }
