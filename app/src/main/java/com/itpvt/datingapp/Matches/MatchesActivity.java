@@ -30,6 +30,10 @@ private  String currentUser;
         setContentView(R.layout.activity_matches);
 
 
+
+
+// use of a recyclerview to displat a matches
+
         cycle=(RecyclerView) findViewById(R.id.cycle);
         cycle.setNestedScrollingEnabled(false);
         cycle.setHasFixedSize(true);
@@ -41,12 +45,11 @@ private  String currentUser;
         currentUser= FirebaseAuth.getInstance().getCurrentUser().getUid();
         
         getUserMatchId();
-
-
-
     }
 
 // function get the matches which are made of user with other friends
+
+
     private void getUserMatchId() {
 
 
@@ -59,10 +62,10 @@ private  String currentUser;
 for(DataSnapshot match: dataSnapshot.getChildren()){
 
     FetchMatchInfo(match.getKey());
+
 }
-
-
                 }
+
 
             }
 

@@ -49,6 +49,9 @@ public class ChatActivity extends AppCompatActivity {
 
         getChatId();
 
+
+        // use a recycler view to show all the messages which are made by users to each other
+
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(false);

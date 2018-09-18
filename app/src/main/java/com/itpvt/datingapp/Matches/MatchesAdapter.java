@@ -39,7 +39,10 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolder> {
         return view;
 
     }
-// set the image on matches or make it default
+// set the image on matches or make it default......
+
+
+
     @Override
     public void onBindViewHolder(MatchesViewHolder holder, int position) {
 
